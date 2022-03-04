@@ -1,0 +1,11 @@
+# nacos\u670D\u52A1\u5730\u5740
+spring:
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: 4418az5297.zicp.vip:8848
+        server-addr: 127.0.0.1:8848
+  application:
+    name: gulimall-third-party
+server:
+  port: 30000

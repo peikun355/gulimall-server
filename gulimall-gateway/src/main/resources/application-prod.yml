@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 4418az5297.zicp.vip:8848
+        namespace: e2d1d2d3-ed5d-43dd-8924-1d5ace02cf84
+    gateway:
+      routes:
+
+        - id: product_route
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: third_party_route
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          #lb: 负载均衡
+          uri: lb://renren-fast
+          #断言
+          predicates:
+            - Path=/api/**
+          #修改路径把/api改成项目名
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
